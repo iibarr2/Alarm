@@ -75,13 +75,23 @@ public class AlarmGUI{
         return timePanel;
 	}
 	
+	private final boolean mode = false;
 	
-	private void createTimer() {
-        Timer timer = new Timer(1000, actionListener);
-        timer.setActionCommand("Timer");
-        timer.setInitialDelay(0);
-        timer.start();
+	private void updateTime() {
+        String tempTime = String.format("%tT", new Date());
+        if (mode) {
+            currentTime.setText(tempTime);
+        } else {
+            currentTime.setText(String.format("%tr", new Date()));
+        }
     }
+	
+//	private void createTimer() {
+//        Timer timer = new Timer(1000, new MyActionListener());
+//        timer.setActionCommand(null);
+//        timer.setInitialDelay(0);
+//        timer.start();
+//    }
 	
 	/*
 	 * creates a separate panel to hold the buttons to create a new alarm
@@ -99,7 +109,7 @@ public class AlarmGUI{
 	 */
 	private JComboBox alarmList() {
         alarmList = new JComboBox<>();
-        alarmList.addActionListener(actionListener);
+        //alarmList.addActionListener(actionListener);
         alarmList.setActionCommand("Alarm List");
         alarmList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return alarmList;
@@ -132,7 +142,7 @@ public class AlarmGUI{
 	private void createAlarm() {
         frame = new JFrame("Alarm Clock");
         frame.getContentPane().add(mainPanel());
-        createTimer();
+        //createTimer();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.pack();
@@ -152,77 +162,78 @@ public class AlarmGUI{
 	
 	/*
 	 * class that handle creating the alarms and calls the components commented underneath for now
+	 * also starts the timer on the clock to do in real time telling
 	 */
 	class MyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	/*
+        	 * triggers the event after clicking create a new alarm
+        	 */
+        	popUpFrame();
         }
     }
 	
-	
-	
-	
-//	/*
-//	 * creates combo boxes for a drop down menu to create an alarm
-//	 */
-//	
-//	String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-//	String[] hours = {"1","2","3","4","5","6","7","8","9","10","11","12"};
-//	String[] mins = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
-//			"25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48",
-//			"49","50","51","52","53","54","55","56","57","58","59"};
-//	String[] zone = {"AM","PM"};
-//	
-//	public AlarmGUI() {
-//		JFrame frame = new JFrame("Alarm Clock");
-//		//frame.setSize(1000,1000);
-//		frame.setVisible(true);
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
-//		JPanel panel = new JPanel();
-//		frame.add(panel);
-//		
-//		JLabel alarmLabel = new JLabel("Set Alarm - ");
-//		panel.add(alarmLabel);
-//		
-//		
-//		JComboBox monthCombo = new JComboBox(months);
-//		JLabel monthLabel = new JLabel("Months");
-//		monthCombo.setSelectedIndex(0);
-//		monthCombo.add(monthLabel, JLabel.NORTH);
-//		panel.add(monthCombo);
-//		
-//		JTextField days = new JTextField();
-//		days.setText("0");
-//		days.setBackground(Color.LIGHT_GRAY);
-//		days.setEditable(true);
-//		panel.add(days);
-//		
-//		JComboBox hourCombo = new JComboBox(hours);
-//		JLabel hourLabel = new JLabel("Hours");
-//		hourCombo.setSelectedIndex(0);
-//		hourCombo.add(hourLabel, JLabel.NORTH);
-//		panel.add(hourCombo);
-//		
-//		JComboBox minsCombo = new JComboBox(mins);
-//		JLabel minsLabel = new JLabel("Minutes");
-//		minsCombo.setSelectedIndex(0);
-//		minsCombo.add(minsLabel, JLabel.NORTH);
-//		panel.add(minsCombo);
-//		
-//		JComboBox zoneCombo = new JComboBox(zone);
-//		zoneCombo.setSelectedIndex(0);
-//		panel.add(zoneCombo);
-//		
-//		JTextField messageTF = new JTextField();
-//		panel.add(messageTF);
-//		
-//		JButton createAlarm = new JButton("Create alarm");
-//		panel.add(createAlarm);
-//	}
-//	
-//	public static void main (String args[]) {
-//		AlarmGUI alarm = new AlarmGUI();
-//	}
-
+	/*
+	 * popup menu triggered from clicking on the create a new alrm button
+	 */
+	public void popUpFrame() {
+		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+		String[] hours = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+		String[] mins = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
+				"25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48",
+				"49","50","51","52","53","54","55","56","57","58","59"};
+		String[] zone = {"AM","PM"};
+		
+		JFrame frame = new JFrame("Create Alarm");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(700, 100);
+		frame.setResizable(true);
+		//frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		
+		JPanel panel = new JPanel();
+		frame.add(panel);
+		
+		JLabel alarmLabel = new JLabel("Set Alarm - ");
+		panel.add(alarmLabel);
+		
+		
+		JComboBox monthCombo = new JComboBox(months);
+		JLabel monthLabel = new JLabel("Months");
+		monthCombo.setSelectedIndex(0);
+		monthCombo.add(monthLabel, JLabel.NORTH);
+		panel.add(monthCombo);
+		
+		JTextField days = new JTextField();
+		days.setText("0");
+		days.setBackground(Color.LIGHT_GRAY);
+		days.setEditable(true);
+		panel.add(days);
+		
+		JComboBox hourCombo = new JComboBox(hours);
+		JLabel hourLabel = new JLabel("Hours");
+		hourCombo.setSelectedIndex(0);
+		hourCombo.add(hourLabel, JLabel.NORTH);
+		panel.add(hourCombo);
+		
+		JComboBox minsCombo = new JComboBox(mins);
+		JLabel minsLabel = new JLabel("Minutes");
+		minsCombo.setSelectedIndex(0);
+		minsCombo.add(minsLabel, JLabel.NORTH);
+		panel.add(minsCombo);
+		
+		JComboBox zoneCombo = new JComboBox(zone);
+		zoneCombo.setSelectedIndex(0);
+		panel.add(zoneCombo);
+		
+		JTextField messageTF = new JTextField();
+		messageTF.setSize(100, 100);
+		panel.add(messageTF);
+		
+		JButton createAlarm = new JButton("Create alarm");
+		panel.add(createAlarm);
+	}
 }
