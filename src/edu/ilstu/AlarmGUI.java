@@ -37,7 +37,7 @@ public class AlarmGUI{
 	
 	private JLabel currentTime, alarmSetTime;
 	
-	private final Event event;
+	private final MyActionListener actionListener;
 	
 	/*
 	 * create main JPanel for the GUI
@@ -77,7 +77,7 @@ public class AlarmGUI{
 	
 	
 	private void createTimer() {
-        Timer timer = new Timer(1000, event);
+        Timer timer = new Timer(1000, actionListener);
         timer.setActionCommand("Timer");
         timer.setInitialDelay(0);
         timer.start();
@@ -89,7 +89,7 @@ public class AlarmGUI{
 	 */
 	private JPanel buttons() {
 		JPanel panel = new JPanel();
-		panel.add(createButton("Create New Alarm", event));
+		panel.add(createButton("Create New Alarm", actionListener));
 		return panel;
 	}
 	
@@ -99,7 +99,7 @@ public class AlarmGUI{
 	 */
 	private JComboBox alarmList() {
         alarmList = new JComboBox<>();
-        alarmList.addActionListener(event);
+        alarmList.addActionListener(actionListener);
         alarmList.setActionCommand("Alarm List");
         alarmList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return alarmList;
@@ -122,7 +122,7 @@ public class AlarmGUI{
 	 * constructor to create a new Alarm clock frame
 	 */
 	public AlarmGUI() {
-        event = new Event(); //Handles GUI events
+        actionListener = new MyActionListener(); //Handles GUI events
         createAlarm();
     }
 	
@@ -153,7 +153,7 @@ public class AlarmGUI{
 	/*
 	 * class that handle creating the alarms and calls the components commented underneath for now
 	 */
-	class Event implements ActionListener {
+	class MyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
         }
