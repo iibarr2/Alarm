@@ -86,12 +86,12 @@ public class AlarmGUI{
         }
     }
 	
-//	private void createTimer() {
-//        Timer timer = new Timer(1000, new MyActionListener());
-//        timer.setActionCommand(null);
-//        timer.setInitialDelay(0);
-//        timer.start();
-//    }
+	private void createTimer() {
+        Timer timer = new Timer(1000, new MyActionListener());
+        timer.setActionCommand(null);
+        timer.setInitialDelay(0);
+        timer.start();
+    }
 	
 	/*
 	 * creates a separate panel to hold the buttons to create a new alarm
@@ -168,7 +168,8 @@ public class AlarmGUI{
         @Override
         public void actionPerformed(ActionEvent e) {
         	/*
-        	 * triggers the event after clicking create a new alarm
+        	 * triggers the event after clicking create a new alarm and brings up GUI to create a new alarm
+        	 * should then trigger another listener to create the alarm object and add it to the array list and start the alarm to go off at the time set
         	 */
         	popUpFrame();
         }
@@ -180,16 +181,14 @@ public class AlarmGUI{
 	public void popUpFrame() {
 		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 		String[] hours = {"1","2","3","4","5","6","7","8","9","10","11","12"};
-		String[] mins = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
+		String[] mins = {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
 				"25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48",
 				"49","50","51","52","53","54","55","56","57","58","59"};
 		String[] zone = {"AM","PM"};
 		
 		JFrame frame = new JFrame("Create Alarm");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 100);
 		frame.setResizable(true);
-		//frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -208,7 +207,7 @@ public class AlarmGUI{
 		panel.add(monthCombo);
 		
 		JTextField days = new JTextField();
-		days.setText("0");
+		days.setText("00");
 		days.setBackground(Color.LIGHT_GRAY);
 		days.setEditable(true);
 		panel.add(days);
@@ -230,7 +229,7 @@ public class AlarmGUI{
 		panel.add(zoneCombo);
 		
 		JTextField messageTF = new JTextField();
-		messageTF.setSize(100, 100);
+		messageTF.setText("Enter optional message here");
 		panel.add(messageTF);
 		
 		JButton createAlarm = new JButton("Create alarm");
