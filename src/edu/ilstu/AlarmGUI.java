@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -34,11 +35,14 @@ public class AlarmGUI{
 	 * list that holds the alarms after they are created and throws them in combo box layout
 	 */
 	private JComboBox<String> alarmList;
-	
+	public String[] alarmListArray = new String[500];
+	public int alarmSize = 0;
+
 	private JLabel currentTime, alarmSetTime;
 	
 	private final MyActionListener actionListener;
 	
+	public String pickedHour, pickedDay, pickedMinute, pickedMonth, pickedAMPM, pickedMessage;
 	/*
 	 * create main JPanel for the GUI
 	 */
@@ -202,34 +206,86 @@ public class AlarmGUI{
 		
 		JComboBox monthCombo = new JComboBox(months);
 		JLabel monthLabel = new JLabel("Months");
+		ActionListener actionListenerMonth = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		    	  alarmSize ++;
+		    	   alarmListArray[alarmSize] = (String) monthCombo.getSelectedItem();
+		        
+		      }
+		    };
 		monthCombo.setSelectedIndex(0);
 		monthCombo.add(monthLabel, JLabel.NORTH);
+		monthCombo.addActionListener(actionListenerMonth);
 		panel.add(monthCombo);
 		
+		
 		JTextField days = new JTextField();
+		ActionListener actionListenerDay = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		    	
+		    	  alarmListArray[alarmSize] = (String) days.getSelectedText();
+		      }
+		    };
 		days.setText("00");
 		days.setBackground(Color.LIGHT_GRAY);
 		days.setEditable(true);
+		days.addActionListener(actionListenerDay);
 		panel.add(days);
+		
+		   
 		
 		JComboBox hourCombo = new JComboBox(hours);
 		JLabel hourLabel = new JLabel("Hours");
+		ActionListener actionListenerHour = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		        
+		    	  alarmListArray[alarmSize] = (String) hourCombo.getSelectedItem();
+		      }
+		    };
+		   
 		hourCombo.setSelectedIndex(0);
 		hourCombo.add(hourLabel, JLabel.NORTH);
+		hourCombo.addActionListener(actionListenerHour);
 		panel.add(hourCombo);
+		
+		 
 		
 		JComboBox minsCombo = new JComboBox(mins);
 		JLabel minsLabel = new JLabel("Minutes");
+		ActionListener actionListenerMinute = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		    	  
+		    	  alarmListArray[alarmSize] = (String) minsCombo.getSelectedItem();
+		        
+		      }
+		    };
 		minsCombo.setSelectedIndex(0);
 		minsCombo.add(minsLabel, JLabel.NORTH);
+		minsCombo.addActionListener(actionListenerMinute);
 		panel.add(minsCombo);
 		
 		JComboBox zoneCombo = new JComboBox(zone);
+		ActionListener actionListenerZone = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		    	  alarmListArray[alarmSize] = (String) zoneCombo.getSelectedItem();
+
+		        
+		      }
+		    };
 		zoneCombo.setSelectedIndex(0);
+		zoneCombo.addActionListener(actionListenerZone);
 		panel.add(zoneCombo);
 		
 		JTextField messageTF = new JTextField();
+		ActionListener actionListenerMessage = new ActionListener() {
+		      public void actionPerformed(ActionEvent actionEvent) {
+		    	  System.out.println("asdasd");
+		    	  alarmListArray[alarmSize] = (String) messageTF.getSelectedText();
+		    	  System.out.println(alarmListArray[0].toString());
+		      }
+		    };
 		messageTF.setText("Enter optional message here");
+		messageTF.addActionListener(actionListenerMessage);
 		panel.add(messageTF);
 		
 		JButton createAlarm = new JButton("Create alarm");
