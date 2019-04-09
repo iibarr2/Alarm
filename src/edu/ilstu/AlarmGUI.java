@@ -69,9 +69,9 @@ public class AlarmGUI{
 		
 		currentTime = new JLabel(String.format("%tT", new Date()),SwingConstants.CENTER);
         currentTime.setFont(currentTime.getFont().deriveFont(20.0f));
-        currentTime.setPreferredSize(new Dimension(200,76));
+        currentTime.setPreferredSize(new Dimension(250,76));
         currentTime.setOpaque(false);
-        currentTime.setBorder(BorderFactory.createTitledBorder("Current Time"));
+        currentTime.setBorder(BorderFactory.createTitledBorder("Current Date and Time"));
         alarmSetTime = new JLabel("00:00:00", SwingConstants.CENTER);
         alarmSetTime.setFont(alarmSetTime.getFont().deriveFont(20.0f));
         alarmSetTime.setPreferredSize(new Dimension(200,76));
@@ -95,7 +95,7 @@ public class AlarmGUI{
 //    }
 	
 	private void createTimer() {
-        Timer timer = new Timer(1000, new TimeListener());
+        Timer timer = new Timer(1000, timeListener);
         //timer.setActionCommand(null);
         timer.setInitialDelay(0);
         timer.start();
@@ -109,7 +109,7 @@ public class AlarmGUI{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Date date = new Date();
-			DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+			DateFormat timeFormat = new SimpleDateFormat("MM-dd-yy hh:mm:ss a");
 			String time = timeFormat.format(date);
 			currentTime.setText(time);
 		}
