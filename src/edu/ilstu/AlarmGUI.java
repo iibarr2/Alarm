@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,6 +43,8 @@ public class AlarmGUI{
 	private JLabel currentTime, alarmSetTime;
 	
 	private final MyActionListener actionListener;
+	private final DeleteListener deleteListener;
+	private final TimeListener timeListener;
 	
 	public String pickedHour, pickedDay, pickedMinute, pickedMonth, pickedAMPM, pickedMessage;
 	/*
@@ -79,23 +83,38 @@ public class AlarmGUI{
         return timePanel;
 	}
 	
-	private final boolean mode = false;
-	
-	private void updateTime() {
-        String tempTime = String.format("%tT", new Date());
-        if (mode) {
-            currentTime.setText(tempTime);
-        } else {
-            currentTime.setText(String.format("%tr", new Date()));
-        }
-    }
+//	private final boolean mode = false;
+//	
+//	private void updateTime() {
+//        String tempTime = String.format("%tT", new Date());
+//        if (mode) {
+//            currentTime.setText(tempTime);
+//        } else {
+//            currentTime.setText(String.format("%tr", new Date()));
+//        }
+//    }
 	
 	private void createTimer() {
-        Timer timer = new Timer(1000, new MyActionListener());
-        timer.setActionCommand(null);
+        Timer timer = new Timer(1000, new TimeListener());
+        //timer.setActionCommand(null);
         timer.setInitialDelay(0);
         timer.start();
     }
+	
+	/*
+	 * action listener for the current time
+	 */
+	class TimeListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Date date = new Date();
+			DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+			String time = timeFormat.format(date);
+			currentTime.setText(time);
+		}
+		
+	}
 	
 	/*
 	 * creates a separate panel to hold the buttons to create a new alarm
@@ -104,6 +123,7 @@ public class AlarmGUI{
 	private JPanel buttons() {
 		JPanel panel = new JPanel();
 		panel.add(createButton("Create New Alarm", actionListener));
+		panel.add(createButton("Delete Alarms", deleteListener));
 		return panel;
 	}
 	
@@ -113,7 +133,6 @@ public class AlarmGUI{
 	 */
 	private JComboBox alarmList() {
         alarmList = new JComboBox<>();
-        //alarmList.addActionListener(actionListener);
         alarmList.setActionCommand("Alarm List");
         alarmList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return alarmList;
@@ -137,6 +156,8 @@ public class AlarmGUI{
 	 */
 	public AlarmGUI() {
         actionListener = new MyActionListener(); //Handles GUI events
+        deleteListener = new DeleteListener();
+        timeListener = new TimeListener();
         createAlarm();
     }
 	
@@ -146,7 +167,7 @@ public class AlarmGUI{
 	private void createAlarm() {
         frame = new JFrame("Alarm Clock");
         frame.getContentPane().add(mainPanel());
-        //createTimer();
+        createTimer();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.pack();
@@ -178,6 +199,19 @@ public class AlarmGUI{
         	popUpFrame();
         }
     }
+	
+	/*
+	 * listener that is triggered when the delete alarm button is pressed
+	 * will delete alarm from the arraylist
+	 */
+	class DeleteListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+		
+	}
 	
 	/*
 	 * popup menu triggered from clicking on the create a new alrm button
@@ -290,5 +324,6 @@ public class AlarmGUI{
 		
 		JButton createAlarm = new JButton("Create alarm");
 		panel.add(createAlarm);
+		
 	}
 }
