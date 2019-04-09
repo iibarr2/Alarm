@@ -15,7 +15,7 @@ public class InputOutput
 	
 	
 	/*
-	 * ewe
+	 * 
 	 * makeAlarm method is called on a array of strings that contain all
 	 * of the info on the alarm. should work for an array of any size. 
 	 * the "true" modifier in printwriter means that it should always append
