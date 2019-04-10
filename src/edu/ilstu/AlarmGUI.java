@@ -353,6 +353,7 @@ public class AlarmGUI{
 			
 			String alarmToString = alarm.noMessageToString();
 			alarmList.addItem(alarmToString);
+			alarmSetTime.setText(alarmToString);
 			
 		}
 		
