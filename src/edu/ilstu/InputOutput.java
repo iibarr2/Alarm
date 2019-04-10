@@ -24,22 +24,32 @@ public class InputOutput
 	 */
 	public void makeAlarm(String[] alarmArray) throws IOException
 	{
+		
 		File file = new File("alarms.csv");
-		PrintWriter pw = new PrintWriter(new FileOutputStream("alarms.csv",true));
-		StringBuilder sb = new StringBuilder();
-
-		
-		for(int i = 0; i < alarmArray.length;i++)
-		{
-			sb.append(alarmArray[i]);
-			sb.append(",");
-		
+		if(file.exists()) {
+			
 		}
-		pw.write(sb.toString());
+		
+		else if(!file.exists()) {
+			
+			PrintWriter pw = new PrintWriter(new FileOutputStream("alarms.csv",true));
+			StringBuilder sb = new StringBuilder();
+			
+			
+			for(int i = 0; i < alarmArray.length;i++)
+			{
+				sb.append(alarmArray[i]);
+				sb.append(",");
+			
+			}
+			pw.write(sb.toString());
 
-		pw.write("\n");
-		pw.flush();
-		pw.close();
+			pw.write("\n");
+			pw.flush();
+			pw.close();
+			
+		}
+		
 
 	}
 	
@@ -127,7 +137,64 @@ public class InputOutput
     }
 	
 
-    
+    public void addAlarmtoList(String month, String day, String hour, String minute, String zone, String message) {
+    	
+    	try (PrintWriter writer = new PrintWriter(new File("alarms.csv"))) {
+
+    	      StringBuilder sb = new StringBuilder();
+    	      sb.append(month);
+    	      sb.append(',');
+    	      sb.append(day);
+    	      sb.append(',');
+    	      sb.append(hour);
+    	      sb.append(',');
+    	      sb.append(minute);
+    	      sb.append(',');
+    	      sb.append(zone);
+    	      sb.append(',');
+    	      sb.append(message);
+    	      sb.append('\n');
+    	    
+    	      writer.write(sb.toString());
+
+    	      System.out.println("done!");
+
+    	    } catch (FileNotFoundException e) {
+    	      System.out.println(e.getMessage());
+    	    }
+
+    	
+    	
+    	
+    }
+ public void addAlarmtoList(String month, String day, String hour, String minute, String zone) {
+    	
+    	try (PrintWriter writer = new PrintWriter(new File("alarms.csv"))) {
+
+    	      StringBuilder sb = new StringBuilder();
+    	      sb.append(month);
+    	      sb.append(',');
+    	      sb.append(day);
+    	      sb.append(',');
+    	      sb.append(hour);
+    	      sb.append(',');
+    	      sb.append(minute);
+    	      sb.append(',');
+    	      sb.append(zone);
+    	      sb.append('\n');
+    	    
+    	      writer.write(sb.toString());
+
+    	      System.out.println("done!");
+
+    	    } catch (FileNotFoundException e) {
+    	      System.out.println(e.getMessage());
+    	    }
+
+    	
+    	
+    	
+    }
  
 		
 	
