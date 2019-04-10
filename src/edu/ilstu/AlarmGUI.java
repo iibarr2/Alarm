@@ -5,6 +5,7 @@ package edu.ilstu;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.border.LineBorder;
 
 
 public class AlarmGUI{
@@ -45,6 +47,8 @@ public class AlarmGUI{
 	private final MyActionListener actionListener;
 	private final DeleteListener deleteListener;
 	private final TimeListener timeListener;
+	private final SnoozeListener snoozeListener;
+	private final StopListener stopListener;
 	
 	public String pickedHour, pickedDay, pickedMinute, pickedMonth, pickedAMPM, pickedMessage;
 	/*
@@ -158,6 +162,8 @@ public class AlarmGUI{
         actionListener = new MyActionListener(); //Handles GUI events
         deleteListener = new DeleteListener();
         timeListener = new TimeListener();
+        snoozeListener = new SnoozeListener();
+        stopListener = new StopListener();
         createAlarm();
     }
 	
@@ -201,6 +207,66 @@ public class AlarmGUI{
     }
 	
 	/*
+	 * frame the pop up when the alarm goes off
+	 */
+	
+	int count = 0;
+	String count_String = Integer.toString(count);
+	private JFrame alarmGoOff() {
+		JFrame frame = new JFrame("Alarm");
+		
+		JPanel wakeUpPanel = new JPanel();
+		JLabel wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
+		wakeUpPanel.add(wakeUpLabel);
+		wakeUpPanel.setBackground(Color.LIGHT_GRAY);
+		wakeUpPanel.setBorder(new LineBorder(Color.RED));
+		
+		JPanel snoozePanel = new JPanel();
+		snoozePanel.add(createButton("Dismiss", stopListener));
+		snoozePanel.add(createButton("Snooze", snoozeListener));
+		
+		JPanel countPanel = new JPanel();
+		JLabel countLabel = new JLabel("Count -");
+		Font f = new Font("Roman", Font.BOLD, 16);
+		JTextField countTF = new JTextField(count_String);
+		countTF.setFont(f);
+		countLabel.setFont(f);
+		countTF.setEditable(false);
+		countPanel.add(countLabel);
+		countPanel.add(countTF);
+		
+		frame.add(wakeUpPanel);
+		frame.add(snoozePanel);
+		frame.add(countPanel);
+		return frame;
+		
+	}
+	
+	/*
+	 * listener that is triggered when the user hits snooze on the alarm
+	 */
+	class SnoozeListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			count++;
+			
+		}
+		
+	}
+	
+	class StopListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	/*
 	 * listener that is triggered when the delete alarm button is pressed
 	 * will delete alarm from the arraylist
 	 */
@@ -214,7 +280,7 @@ public class AlarmGUI{
 	}
 	
 	/*
-	 * popup menu triggered from clicking on the create a new alrm button
+	 * popup menu triggered from clicking on the create a new alarm button
 	 */
 	public void popUpFrame() {
 		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
