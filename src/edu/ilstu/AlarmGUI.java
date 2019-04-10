@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -201,12 +202,13 @@ public class AlarmGUI{
 	
 	int count = 0;
 	String count_String = Integer.toString(count);
+	JLabel wakeUpLabel;
 	private JFrame alarmGoOff() {
 		JFrame frame = new JFrame("Alarm");
 		
 		JPanel wakeUpPanel = new JPanel();
-		JLabel wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
-		wakeUpPanel.add(wakeUpLabel);
+		//wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
+		wakeUpPanel.add(wakeUpLabel, SwingConstants.CENTER);
 		wakeUpPanel.setBackground(Color.LIGHT_GRAY);
 		wakeUpPanel.setBorder(new LineBorder(Color.RED));
 		
@@ -273,7 +275,7 @@ public class AlarmGUI{
 	JComboBox hourCombo;
 	JComboBox minsCombo;
 	JComboBox zoneCombo;
-	JTextField messageTF;
+	JTextArea messageTA = null;
 	
 	/*
 	 * popup menu triggered from clicking on the create a new alarm button
@@ -333,9 +335,9 @@ public class AlarmGUI{
 		zoneCombo.setSelectedIndex(0);
 		panel.add(zoneCombo);
 		
-		JTextField messageTF = new JTextField();
-		messageTF.setText("Enter optional message here");
-		panel.add(messageTF);
+		messageTA = new JTextArea(2,2);
+		messageTA.setText("Enter optional message here");
+		panel.add(messageTA);
 		
 		JButton createAlarm = new JButton("Create alarm");
 		panel.add(createAlarm);
@@ -349,18 +351,18 @@ public class AlarmGUI{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			Alarm alarm = new Alarm(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
-					,zoneCombo.getSelectedItem().toString());
+					,zoneCombo.getSelectedItem().toString(), messageTA.getText());
+			
 			InputOutput inOut = new InputOutput();
+			inOut.addAlarmtoList(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
+						,zoneCombo.getSelectedItem().toString(), messageTA.getText());
 			
-				inOut.addAlarmtoList(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
-						,zoneCombo.getSelectedItem().toString());
 			
 			
-			String alarmToString = alarm.noMessageToString();
-			alarmList.addItem(alarmToString);
-			alarmSetTime.setText(alarmToString);
-			
+			String alarmNO = alarm.noMessageToString();
+			String alarmString = alarm.toString();
+			alarmList.addItem(alarmString);
+			alarmSetTime.setText(alarmNO);
 		}
-		
 	}
 }
