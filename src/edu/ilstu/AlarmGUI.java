@@ -208,9 +208,9 @@ public class AlarmGUI{
 		JLabel monthLabel = new JLabel("Months");
 		ActionListener actionListenerMonth = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-		    	  alarmSize ++;
+		    	 
 		    	   alarmListArray[alarmSize] = (String) monthCombo.getSelectedItem();
-		        
+		    	   alarmSize ++;
 		      }
 		    };
 		monthCombo.setSelectedIndex(0);
