@@ -350,6 +350,11 @@ public class AlarmGUI{
 			// TODO Auto-generated method stub
 			Alarm alarm = new Alarm(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
 					,zoneCombo.getSelectedItem().toString());
+			InputOutput inOut = new InputOutput();
+			
+				inOut.addAlarmtoList(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
+						,zoneCombo.getSelectedItem().toString());
+			
 			
 			String alarmToString = alarm.noMessageToString();
 			alarmList.addItem(alarmToString);
