@@ -10,8 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+//import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 
@@ -363,6 +365,117 @@ public class AlarmGUI{
 			String alarmString = alarm.toString();
 			alarmList.addItem(alarmString);
 			alarmSetTime.setText(alarmNO);
+			
+			checkAlarm(alarm);
 		}
 	}
+	
+	
+	
+	public void checkAlarm(Alarm a)
+	{
+		java.util.Timer timer = new java.util.Timer();
+		Calendar calendar = Calendar.getInstance();
+		
+		String month = a.getMonth();
+		int day = Integer.valueOf(a.getDay());
+		int hour = Integer.valueOf(a.getHour());
+		int min = Integer.valueOf(a.getMin());
+
+		timer.scheduleAtFixedRate(
+				 new TimerTask()
+				    {
+				        public void run()
+				        {
+				        	int currMonth = calendar.get(Calendar.MONTH);
+				        	int currDay = calendar.get(Calendar.DAY_OF_MONTH);
+				        	int currHour =calendar.get(Calendar.HOUR_OF_DAY);
+				        	int currMin = calendar.get(Calendar.MINUTE);
+				        	int currSec = calendar.get(Calendar.SECOND);
+				        	
+				        	int intMonth = 0;
+				        	switch(month)
+				    		{
+				    		case "Jan":
+				    			intMonth = 0;
+				    			break;
+				    		case "Feb":
+				    			intMonth = 1;
+				    			break;
+				    		case "Mar":
+				    			intMonth = 2;
+				    			break;
+				    		case "Apr":
+				    			intMonth = 3;
+				    			break;
+				    		case "May":
+				    			intMonth = 4;
+				    			break;
+				    		case "Jun":
+				    			intMonth = 5;
+				    			break;
+				    		case "Jul":
+				    			intMonth = 6;
+				    			break;
+				    		case "Aug":
+				    			intMonth = 7;
+				    			break;
+				    		case "Sep":
+				    			intMonth = 8;
+				    			break;
+				    		case "Oct":
+				    			intMonth = 9;
+				    			break;
+				    		case "Nov":
+				    			intMonth = 10;
+				    			break;
+				    		case "Dec":
+				    			intMonth = 11;
+				    			break;
+				    		default:
+				    		}
+				        	
+				        	int intHour = 0;
+				        	
+				        	
+				    		if(a.getZone().equalsIgnoreCase("pm"))
+				    		{
+				    			intHour = intHour + 12;
+				    		}
+				    		
+				        	
+				        	System.out.println(currMonth + " " + currDay + "  " + currHour + " "  + currMin + " " + currSec);
+				        	
+				        	if((intMonth < currMonth)
+				        			|| (intMonth == currMonth && day < currDay)
+				        			|| (intMonth == currMonth && day == currDay && hour < currHour)
+				        	//		|| (intMonth == currMonth && day == currDay && hour == currHour && min <= currMin)
+				        			)
+				        	{
+					        	System.out.println("ALARM GO OFF");
+					        	alarmGoOff();
+					        	timer.cancel();
+	        					return;
+					        				
+				        	}
+				        	else
+				        	{
+				        		System.out.println("Still waiting");
+				        	}
+				        	
+				        }
+				    },
+				    
+				    0,    
+				    2000);
+		
+					
+	}
+	
+	
+	
+	
+	
+	
+	
 }
