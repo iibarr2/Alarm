@@ -269,7 +269,7 @@ public class AlarmGUI{
 	}
 	
 	JComboBox monthCombo;
-	JTextField days;
+	JComboBox daysCombo;
 	JComboBox hourCombo;
 	JComboBox minsCombo;
 	JComboBox zoneCombo;
@@ -280,6 +280,8 @@ public class AlarmGUI{
 	 */
 	public void popUpFrame() {
 		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+		String[] days = {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
+				"25","26","27","28","29","30","31"};
 		String[] hours = {"01","02","03","04","05","06","07","08","09","10","11","12"};
 		String[] mins = {"00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24",
 				"25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48",
@@ -307,11 +309,9 @@ public class AlarmGUI{
 		panel.add(monthCombo);
 		
 		
-		days = new JTextField();
-		days.setText("00");
-		days.setBackground(Color.LIGHT_GRAY);
-		days.setEditable(true);
-		panel.add(days);
+		daysCombo = new JComboBox(days);
+		daysCombo.setSelectedIndex(0);
+		panel.add(daysCombo);
 		
 		   
 		
@@ -348,8 +348,10 @@ public class AlarmGUI{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Alarm alarm = new Alarm("Jan", "08", "11", "9", "PM", "Test");
-			String alarmToString = alarm.toString();
+			Alarm alarm = new Alarm(monthCombo.getSelectedItem().toString(),daysCombo.getSelectedItem().toString(),hourCombo.getSelectedItem().toString(),minsCombo.getSelectedItem().toString()
+					,zoneCombo.getSelectedItem().toString());
+			
+			String alarmToString = alarm.noMessageToString();
 			alarmList.addItem(alarmToString);
 			
 		}

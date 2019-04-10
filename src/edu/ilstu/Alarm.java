@@ -13,7 +13,7 @@ package edu.ilstu;
  */
 public class Alarm {
 	
-	public String month, day, hour, min, zone, message;
+	public String month, day ,hour, min, zone, message;
 	
 	public Alarm(String month, String day, String hour, String min, String zone, String message) {
 		super();
@@ -24,12 +24,46 @@ public class Alarm {
 		this.zone = zone;
 		this.message = message;
 	}
-
 	
+	
+	
+	
+
+
+	public Alarm(String month, String day, String hour, String min, String zone) {
+		super();
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.min = min;
+		this.zone = zone;
+	}
+	
+	public String noMessageToString() {
+		return month + " " + day + " " + hour + ":" + min + " " + zone;
+	}
+
+
+
+
+
+
+	public Alarm(String month) {
+		super();
+		this.month = month;
+	}
+	
+	public String testString() {
+		return month;
+	}
+
+
 
 	public String getMonth() {
 		return month;
 	}
+
+
 
 
 
@@ -39,9 +73,13 @@ public class Alarm {
 
 
 
+
+
 	public String getDay() {
 		return day;
 	}
+
+
 
 
 
@@ -51,9 +89,13 @@ public class Alarm {
 
 
 
+
+
 	public String getHour() {
 		return hour;
 	}
+
+
 
 
 
@@ -63,9 +105,13 @@ public class Alarm {
 
 
 
+
+
 	public String getMin() {
 		return min;
 	}
+
+
 
 
 
@@ -75,9 +121,13 @@ public class Alarm {
 
 
 
+
+
 	public String getZone() {
 		return zone;
 	}
+
+
 
 
 
@@ -87,9 +137,13 @@ public class Alarm {
 
 
 
+
+
 	public String getMessage() {
 		return message;
 	}
+
+
 
 
 
@@ -99,9 +153,11 @@ public class Alarm {
 
 
 
+
+
 	@Override
 	public String toString() {
-		return month + " " + day + " " + hour + ":" + min + " " + zone;
+		return month + " " + day + " " + hour + ":" + min + " " + zone+ " " + message;
 	}
 	
 	
