@@ -231,7 +231,7 @@ public class AlarmGUI{
 		main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		JPanel wakeUpPanel = new JPanel();
-		JLabel wakeUpLabel = new JLabel("OOF", SwingConstants.CENTER);
+		JLabel wakeUpLabel = new JLabel(messageTA.getText(), SwingConstants.CENTER);
 		wakeUpPanel.add(wakeUpLabel, SwingConstants.CENTER);
 		//wakeUpPanel.setBackground(Color.LIGHT_GRAY);
 		//wakeUpPanel.setBorder(new LineBorder(Color.RED));
