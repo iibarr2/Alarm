@@ -201,10 +201,11 @@ public class AlarmGUI{
 	
 	int count = 0;
 	String count_String = Integer.toString(count);
+	JFrame alarmFrame;
 	private void alarmGoOff() {
-		JFrame frame = new JFrame("Alarm");
-		frame.setSize(400, 200);
-		frame.setLocationRelativeTo(null);
+		alarmFrame = new JFrame("Alarm");
+		alarmFrame.setSize(400, 200);
+		alarmFrame.setLocationRelativeTo(null);
 		
 		JPanel main = new JPanel();
 		main.setLayout(new BoxLayout(main, BoxLayout.PAGE_AXIS));
@@ -233,10 +234,12 @@ public class AlarmGUI{
 		main.add(wakeUpPanel);
 		main.add(snoozePanel);
 		main.add(countPanel);
-		frame.add(main);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
-		frame.setVisible(true);
+		alarmFrame.add(main);
+		alarmFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		alarmFrame.setResizable(true);
+		alarmFrame.setVisible(true);
+		
+		
 		
 	}
 	
@@ -259,6 +262,8 @@ public class AlarmGUI{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			alarmSetTime.setText("--- -- 00:00 --");
+			alarmFrame.dispose();
 			
 		}
 		
