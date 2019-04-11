@@ -3,7 +3,6 @@
  */
 package edu.ilstu;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,8 +29,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-//import javax.swing.Timer;
-import javax.swing.border.LineBorder;
 
 
 public class AlarmGUI{
@@ -379,6 +376,30 @@ public class AlarmGUI{
 	}
 	
 	
+	public static int getSecond() 
+	{
+		Calendar calendar = Calendar.getInstance();
+		int second = calendar.get(Calendar.SECOND);
+		return second;
+	}
+	public static int getMinute()
+	{
+		Calendar calendar = Calendar.getInstance();
+		int minute = calendar.get(Calendar.MINUTE);
+		return minute;
+	}
+	public static int getHour()
+	{
+		Calendar calendar = Calendar.getInstance();
+		int minute = calendar.get(Calendar.HOUR_OF_DAY);
+		return minute;
+	}
+	public static int getDay()
+	{
+		Calendar calendar = Calendar.getInstance();
+		int minute = calendar.get(Calendar.DAY_OF_MONTH);
+		return minute;
+	}
 	
 	public void checkAlarm(Alarm a)
 	{
@@ -395,11 +416,7 @@ public class AlarmGUI{
 				    {
 				        public void run()
 				        {
-				        	int currMonth = calendar.get(Calendar.MONTH);
-				        	int currDay = calendar.get(Calendar.DAY_OF_MONTH);
-				        	int currHour =calendar.get(Calendar.HOUR_OF_DAY);
-				        	int currMin = calendar.get(Calendar.MINUTE);
-				        	int currSec = calendar.get(Calendar.SECOND);
+				    
 				        	
 				        	int intMonth = 0;
 				        	switch(month)
@@ -448,16 +465,28 @@ public class AlarmGUI{
 				        	
 				    		if(a.getZone().equalsIgnoreCase("pm"))
 				    		{
-				    			intHour = intHour + 12;
+				    			intHour = hour + 12;
 				    		}
 				    		
-				        	
+				    		
+				    		int currMonth = calendar.get(Calendar.MONTH);
+				        	int currDay = getDay();
+				        	int currHour =getHour();
+				        	int currMin = getMinute();
+				        	int currSec = getSecond();
+				    		//intHour = intHour + 12;
+				    		System.out.print("Current Time: ");
 				        	System.out.println(currMonth + " " + currDay + "  " + currHour + " "  + currMin + " " + currSec);
+				        	System.out.print("Alarm Time: ");
+				        	System.out.println(intMonth + " " + day + "  " + intHour + " "  + min);
+				        	
+				        	
+				        	
 				        	
 				        	if((intMonth < currMonth)
 				        			|| (intMonth == currMonth && day < currDay)
-				        			|| (intMonth == currMonth && day == currDay && hour < currHour)
-				        	//		|| (intMonth == currMonth && day == currDay && hour == currHour && min <= currMin)
+				        			|| (intMonth == currMonth && day == currDay && intHour < currHour)
+				        			|| (intMonth == currMonth && day == currDay && intHour == currHour && min <= currMin)
 				        			)
 				        	{
 					        	System.out.println("ALARM GO OFF");
@@ -468,7 +497,8 @@ public class AlarmGUI{
 				        	}
 				        	else
 				        	{
-				        		System.out.println("Still waiting");
+				        		//System.out.println("Still waiting");
+				        		
 				        	}
 				        	
 				        }
