@@ -5,7 +5,6 @@ package edu.ilstu;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -34,7 +33,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javafx.scene.media.MediaPlayer;
 
 
 public class AlarmGUI{
@@ -280,10 +278,71 @@ public class AlarmGUI{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			count++;
+			Calendar calendar = Calendar.getInstance();
+			
+			String month = new SimpleDateFormat("MMM").format(calendar.getTime());
+			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+			String hour = null;
+			String zone = null;
+			boolean isRunning = true;
+					
+			java.util.Timer timer = new java.util.Timer();
+			
+			
+			
+			alarmFrame.dispose();
+			clip.stop();
+			count ++;
+			
+			if(calendar.get(Calendar.HOUR_OF_DAY) >= 12)
+			{
+				zone = "pm";
+				hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) - 12);
+			}
+			else
+			{
+				zone = "am";
+				hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) -12 );
+			}
+			int minute = calendar.get(Calendar.MINUTE);
+			/*
+			if((minute + 1) == 60)
+			{
+				minute = 0;
+			}
+			else minute = minute + 1;
+			*/
+			Alarm a = new Alarm(month,day, hour, String.valueOf(minute), zone);
+			
+			java.util.Timer t = new java.util.Timer();
+			t.schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			                checkAlarm(a);
+			                // close the thread
+			                t.cancel();
+			            }
+			        }, 
+			       10000 
+			);
+			
+			
+			/*
+			while(isRunning)
+			{
+				
+				count++;
+				if(e.getSource() == "Dismiss")
+				{
+					isRunning = false;
+				}
+					
+			}
+			*/
 			
 		}
+		
 		
 	}
 	
