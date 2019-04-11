@@ -204,14 +204,20 @@ public class AlarmGUI{
 	
 	int count = 0;
 	String count_String = Integer.toString(count);
-	private JFrame alarmGoOff() {
+	private void alarmGoOff() {
 		JFrame frame = new JFrame("Alarm");
+		frame.setSize(400, 200);
+		frame.setLocationRelativeTo(null);
+		
+		JPanel main = new JPanel();
+		main.setLayout(new BoxLayout(main, BoxLayout.PAGE_AXIS));
+		main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		JPanel wakeUpPanel = new JPanel();
 		JLabel wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
 		wakeUpPanel.add(wakeUpLabel, SwingConstants.CENTER);
-		wakeUpPanel.setBackground(Color.LIGHT_GRAY);
-		wakeUpPanel.setBorder(new LineBorder(Color.RED));
+		//wakeUpPanel.setBackground(Color.LIGHT_GRAY);
+		//wakeUpPanel.setBorder(new LineBorder(Color.RED));
 		
 		JPanel snoozePanel = new JPanel();
 		snoozePanel.add(createButton("Dismiss", stopListener));
@@ -227,10 +233,13 @@ public class AlarmGUI{
 		countPanel.add(countLabel);
 		countPanel.add(countTF);
 		
-		frame.add(wakeUpPanel);
-		frame.add(snoozePanel);
-		frame.add(countPanel);
-		return frame;
+		main.add(wakeUpPanel);
+		main.add(snoozePanel);
+		main.add(countPanel);
+		frame.add(main);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+		frame.setVisible(true);
 		
 	}
 	
@@ -470,11 +479,4 @@ public class AlarmGUI{
 		
 					
 	}
-	
-	
-	
-	
-	
-	
-	
 }
