@@ -219,7 +219,7 @@ public class AlarmGUI{
 	int count = 0;
 	String count_String = Integer.toString(count);
 	JFrame alarmFrame;
-	private void alarmGoOff() {
+	private void alarmGoOff(int count) {
 		alarmFrame = new JFrame("Alarm");
 		alarmFrame.setSize(400, 200);
 		alarmFrame.setLocationRelativeTo(null);
@@ -286,13 +286,14 @@ public class AlarmGUI{
 			String zone = null;
 			boolean isRunning = true;
 					
-			java.util.Timer timer = new java.util.Timer();
+		//	java.util.Timer timer = new java.util.Timer();
 			
 			
 			
 			alarmFrame.dispose();
 			clip.stop();
 			count ++;
+			count_String = Integer.toString(count);
 			
 			if(calendar.get(Calendar.HOUR_OF_DAY) >= 12)
 			{
@@ -302,7 +303,7 @@ public class AlarmGUI{
 			else
 			{
 				zone = "am";
-				hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) -12 );
+				hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) -24 );
 			}
 			int minute = calendar.get(Calendar.MINUTE);
 			/*
@@ -324,7 +325,7 @@ public class AlarmGUI{
 			                t.cancel();
 			            }
 			        }, 
-			       10000 
+			       1000 
 			);
 			
 			
@@ -350,10 +351,12 @@ public class AlarmGUI{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
 			alarmSetTime.setText("--- -- 00:00 --");
 			clip.stop();
 			alarmFrame.dispose();
+			count = 0;
+			count_String = Integer.toString(count);
 			
 		}
 		
@@ -585,7 +588,7 @@ public class AlarmGUI{
 				        			)
 				        	{
 					        	System.out.println("ALARM GO OFF");
-					        	alarmGoOff();
+					        	alarmGoOff(count);
 					        	timer.cancel();
 	        					return;
 					        				
