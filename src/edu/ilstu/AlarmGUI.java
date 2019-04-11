@@ -5,14 +5,19 @@ package edu.ilstu;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 /**
@@ -29,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javafx.scene.media.MediaPlayer;
 
 
 public class AlarmGUI{
@@ -225,7 +231,7 @@ public class AlarmGUI{
 		main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		JPanel wakeUpPanel = new JPanel();
-		JLabel wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
+		JLabel wakeUpLabel = new JLabel("OOF", SwingConstants.CENTER);
 		wakeUpPanel.add(wakeUpLabel, SwingConstants.CENTER);
 		//wakeUpPanel.setBackground(Color.LIGHT_GRAY);
 		//wakeUpPanel.setBorder(new LineBorder(Color.RED));
@@ -244,6 +250,7 @@ public class AlarmGUI{
 		countPanel.add(countLabel);
 		countPanel.add(countTF);
 		
+		playSound();
 		main.add(wakeUpPanel);
 		main.add(snoozePanel);
 		main.add(countPanel);
@@ -251,9 +258,19 @@ public class AlarmGUI{
 		alarmFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		alarmFrame.setResizable(true);
 		alarmFrame.setVisible(true);
-		
-		
-		
+	}
+	AudioInputStream audioInputStream;
+	Clip clip;
+	public void playSound() {
+	    try {
+	        audioInputStream = AudioSystem.getAudioInputStream(new File("Minecraft.wav").getAbsoluteFile());
+	        clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
 	}
 	
 	/*
@@ -276,6 +293,7 @@ public class AlarmGUI{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			alarmSetTime.setText("--- -- 00:00 --");
+			clip.stop();
 			alarmFrame.dispose();
 			
 		}
