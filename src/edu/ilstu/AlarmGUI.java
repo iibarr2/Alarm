@@ -325,7 +325,9 @@ public class AlarmGUI{
 			                t.cancel();
 			            }
 			        }, 
-			       60000 
+        
+			        6 * 10000 
+
 			);
 			
 			
@@ -573,11 +575,12 @@ public class AlarmGUI{
 				        	int currMin = getMinute();
 				        	int currSec = getSecond();
 				    		//intHour = intHour + 12;
-				    		System.out.print("Current Time: ");
+				    		/*
+				        	System.out.print("Current Time: ");
 				        	System.out.println(currMonth + " " + currDay + "  " + currHour + " "  + currMin + " " + currSec);
 				        	System.out.print("Alarm Time: ");
 				        	System.out.println(intMonth + " " + day + "  " + intHour + " "  + min);
-				        	
+				        	*/
 				        	
 				        	
 				        	
