@@ -325,7 +325,7 @@ public class AlarmGUI{
 			                t.cancel();
 			            }
 			        }, 
-			       1000 
+			       60000 
 			);
 			
 			
