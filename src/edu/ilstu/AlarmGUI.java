@@ -204,12 +204,11 @@ public class AlarmGUI{
 	
 	int count = 0;
 	String count_String = Integer.toString(count);
-	JLabel wakeUpLabel;
 	private JFrame alarmGoOff() {
 		JFrame frame = new JFrame("Alarm");
 		
 		JPanel wakeUpPanel = new JPanel();
-		//wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
+		JLabel wakeUpLabel = new JLabel("WAKE UP", SwingConstants.CENTER);
 		wakeUpPanel.add(wakeUpLabel, SwingConstants.CENTER);
 		wakeUpPanel.setBackground(Color.LIGHT_GRAY);
 		wakeUpPanel.setBorder(new LineBorder(Color.RED));
