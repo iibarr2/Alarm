@@ -49,6 +49,7 @@ public class AlarmGUI{
 	private final TimeListener timeListener;
 	private final SnoozeListener snoozeListener;
 	private final StopListener stopListener;
+	private final AlarmListListener alarmListListener;
 	
 	public String pickedHour, pickedDay, pickedMinute, pickedMonth, pickedAMPM, pickedMessage;
 	/*
@@ -127,9 +128,20 @@ public class AlarmGUI{
 	private JComboBox alarmList() {
         alarmList = new JComboBox<>();
         alarmList.setActionCommand("Alarm List");
+        alarmList.addActionListener(alarmListListener);
         alarmList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return alarmList;
     }
+	
+	class AlarmListListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			alarmSetTime.setText(alarmList.getSelectedItem().toString());
+		}
+		
+	}
 	
 	
 	
@@ -153,6 +165,7 @@ public class AlarmGUI{
         timeListener = new TimeListener();
         snoozeListener = new SnoozeListener();
         stopListener = new StopListener();
+        alarmListListener = new AlarmListListener();
         createAlarm();
     }
 	
